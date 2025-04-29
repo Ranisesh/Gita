@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bhagavad Gita Wisdom</title>
+  <style>
+    body {
+      background-color: #f4f1e3;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+      margin: 0;
+    }
+    h1 {
+      color: #d63384;
+      font-size: 36px;
+    }
+    p {
+      font-size: 18px;
+      color: #555;
+      margin: 20px 0;
+    }
+    .quote-box {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px auto;
+      width: 80%;
+      max-width: 600px;
+      font-size: 22px;
+      font-style: italic;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .quote-box p {
+      margin: 0;
+    }
+    .button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      margin: 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #45a049;
+    }
+    .audio-container {
+      margin-top: 30px;
+    }
+    .song-button {
+      background-color: #d63384;
+      color: white;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .song-button:hover {
+      background-color: #c2185b;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Bhagavad Gita Wisdom</h1>
+  <p>Click below to start listening to the Gita wisdom with soft flute music</p>
+
+  <!-- Music Control -->
+  <button class="button" id="audioButton" onclick="toggleMusic()">Play Music</button>
+
+  <!-- Quotes Box -->
+  <div class="quote-box">
+    <p id="quoteText">Loading quotes...</p>
+  </div>
+
+  <!-- Gita Link -->
+  <a href="https://vedabase.io/en/library/bg/" target="_blank">
+    <button class="song-button">Read Full Bhagavad Gita</button>
+  </a>
+
+  <!-- Background Music -->
+  <div class="audio-container">
+    <audio id="audioPlayer" loop>
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const quotes = [
+      "You have the right to work, but never to the fruit of work. – Bhagavad Gita 2.47",
+      "A person can rise through the efforts of his own mind, or draw himself down. – Bhagavad Gita 6.5",
+      "The soul is neither born, and nor does it die. – Bhagavad Gita 2.20",
+      "When meditation is mastered, the mind is unwavering like the flame of a lamp. – Bhagavad Gita 6.19",
+      "There is neither this world, nor the world beyond. How can there be happiness without peace? – Bhagavad Gita 2.66",
+      "Those who are wise see the divine in all. – Bhagavad Gita 5.18",
+      "You came empty handed, and you will leave empty handed. – Bhagavad Gita 16.8",
+      "He who has no attachments can really love others. – Bhagavad Gita 12.13",
+      "The mind is everything. What you think you become. – Bhagavad Gita 6.5",
+      "Change is the law of the universe. – Bhagavad Gita 2.14",
+      "Trust in God’s plan and surrender all to Him. – Bhagavad Gita 9.22",
+      "Selfless action is the highest form of yoga. – Bhagavad Gita 5.11"
+    ];
+
+    let currentQuoteIndex = 0;
+    const quoteText = document.getElementById('quoteText');
+
+    function speak(text) {
+      window.speechSynthesis.cancel(); // stop previous
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-IN'; // Indian English
+      utterance.rate = 0.9;
+      utterance.pitch = 1;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function changeQuote() {
+      const quote = quotes[currentQuoteIndex];
+      quoteText.innerHTML = quote;
+      speak(quote);
+      currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+    }
+
+    // Show first quote immediately
+    changeQuote();
+
+    // Change every 10 seconds
+    setInterval(changeQuote, 10000);
+
+    // Music toggle
+    let audioPlaying = false;
+    function toggleMusic() {
+      const audioPlayer = document.getElementById('audioPlayer');
+      const audioButton = document.getElementById('audioButton');
+      if (audioPlaying) {
+        audioPlayer.pause();
+        audioButton.innerText = 'Play Music';
+      } else {
+        audioPlayer.play();
+        audioButton.innerText = 'Pause Music';
+      }
+      audioPlaying = !audioPlaying;
+    }
+  </script>
+</body>
+</html>
